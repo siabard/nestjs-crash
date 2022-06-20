@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
 import { ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
@@ -20,8 +20,8 @@ export class UsersController {
     @ApiOkResponse({type: User})
     @ApiNotFoundResponse({description: 'No user found'})
     @Get(':id')
-    getUserById(@Param("id") id: string): User {
-        return this.usersService.findById(Number(id));
+    getUserById(@Param("id", ParseIntPipe) id: number): User {
+        return this.usersService.findById(id);
     }
 
     @ApiCreatedResponse({type: User})

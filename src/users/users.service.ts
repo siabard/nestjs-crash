@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 
@@ -8,12 +8,22 @@ export class UsersService {
         {id: 0, name: "Yeonho"}
     ];
 
-    public findAll(): User[] {
+    public findAll(name?: string): User[] {
+        if (name) {
+            return this.users.filter(user => user.name === name);
+        }
         return this.users;
     }
 
     public findById(userId: number): User {
-        return this.users.find(user => user.id === userId);
+
+        const user = this.users.find(user => user.id === userId);
+
+        if (!user) {
+            throw new NotFoundException('No user found');
+        }
+
+        return user;
     }
 
     public createUser(createUserDto: CreateUserDto): User {

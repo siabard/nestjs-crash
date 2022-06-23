@@ -1,13 +1,12 @@
 import { DataSource } from 'typeorm';
 import { SqliteConnectionOptions } from 'typeorm/driver/sqlite/SqliteConnectionOptions';
-import {cwd} from 'process';
 
 const config: SqliteConnectionOptions = {
   type: 'sqlite',
   database: 'db',
-  entities: [cwd() + '/src/**/*.entity.ts'],
+  entities: ['dist/**/*.entity.js'],
   synchronize: false,
-  migrations: [cwd() + '/src/migrations/*.ts'],
+  migrations: ['dist/src/migrations/*.js'],
   migrationsTableName: 'migrations',
   dropSchema: false,
 };

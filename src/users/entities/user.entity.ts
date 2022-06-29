@@ -14,4 +14,12 @@ export class User {
     @ApiProperty()
     @Column({nullable: true})
     age?: number;
+
+    @ApiProperty()
+    @Column({default: ''})
+    username: string;
+
+    @ApiProperty()
+    @Column({default: ''})
+    password: string;
 }
